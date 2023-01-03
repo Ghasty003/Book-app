@@ -91,12 +91,11 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:padding="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Register"
         android:backgroundTint="#E91E63"
-        />
+        android:padding="10dp"
+        android:text="Register" />
 
     <ProgressBar
         android:id="@+id/progressBar"
