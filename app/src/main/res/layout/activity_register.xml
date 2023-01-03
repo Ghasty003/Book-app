@@ -103,6 +103,7 @@
         android:layout_height="40dp"
         android:layout_below="@id/btn"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:indeterminateTint="#E91E63"
         android:visibility="gone"
         />
