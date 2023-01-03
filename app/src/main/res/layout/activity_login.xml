@@ -108,11 +108,10 @@
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#E91E63"
-            android:text="Register"
             android:layout_marginStart="8dp"
-            android:textSize="18sp"
-        />
+            android:text="Register"
+            android:textColor="#E91E63"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
