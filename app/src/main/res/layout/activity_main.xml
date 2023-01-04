@@ -13,27 +13,34 @@
        app:tabTextColor="#E91E63"
        app:tabIndicatorColor="#E91E63"
        app:tabIconTint="#E91E63"
+       app:tabTextAppearance="@style/MYCustomTabText"
        android:layout_height="wrap_content">
 
        <com.google.android.material.tabs.TabItem
-           android:layout_width="match_parent"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Library"
            android:icon="@drawable/ic_baseline_library_books_24"
        />
        <com.google.android.material.tabs.TabItem
-           android:layout_width="match_parent"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Books"
            android:icon="@drawable/ic_baseline_menu_book_24"
        />
        <com.google.android.material.tabs.TabItem
-           android:layout_width="match_parent"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Settings"
            android:icon="@drawable/ic_baseline_settings_24"
        />
 
    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_layout"
+    />
 
 </RelativeLayout>
