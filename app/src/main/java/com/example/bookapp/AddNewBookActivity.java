@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,6 +52,13 @@ public class AddNewBookActivity extends AppCompatActivity {
         chooseImg.setOnClickListener(v -> chooseImage());
 
         addBook.setOnClickListener(view -> addBookToFirestore());
+
+        View header = findViewById(R.id.header);
+        ImageButton imageButton = header.findViewById(R.id.back_btn);
+
+        imageButton.setOnClickListener(view -> {
+            startActivity(new Intent(this, AdminControlActivity.class));
+        });
     }
 
     private void chooseImage() {
