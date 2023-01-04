@@ -46,7 +46,9 @@ public class AdminControlActivity extends AppCompatActivity {
                 case R.id.add:
                     startActivity(new Intent(this, AddNewBookActivity.class));
                     break;
-
+                case R.id.display:
+                    startActivity(new Intent(this, DisplayBooksActivity.class));
+                    break;
             }
 
             return true;
