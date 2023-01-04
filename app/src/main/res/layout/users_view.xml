@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/users_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="email"
@@ -17,7 +17,7 @@
     />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/users_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="username"
