@@ -8,4 +8,8 @@ public class Utility {
     static CollectionReference getCollectionReferenceForUsers() {
         return FirebaseFirestore.getInstance().collection("bookUsers");
     }
+
+    static CollectionReference getCollectionReferenceForBooks() {
+        return FirebaseFirestore.getInstance().collection("books");
+    }
 }
