@@ -42,7 +42,6 @@ public class AdminControlActivity extends AppCompatActivity {
                 case R.id.logout:
                     firebaseAuth.signOut();
                     startActivity(new Intent(this, LoginActivity.class));
-                    drawerLayout.closeDrawer(GravityCompat.START);
                     finish();
                     break;
                 case R.id.display_users:
