@@ -21,6 +21,7 @@
             >
 
             <ImageButton
+                android:id="@+id/image_btn"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/ic_baseline_menu_24"
