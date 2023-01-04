@@ -7,11 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".AdminControlActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-    />
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relative_layout"
+            android:background="#E91E63"
+            android:padding="10dp"
+            >
+
+            <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_baseline_menu_24"
+                android:background="?selectableItemBackgroundBorderless"
+                app:tint="@color/white"
+            />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:layout_below="@id/relative_layout"
+            />
+
+    </RelativeLayout>
 
 
     <com.google.android.material.navigation.NavigationView
