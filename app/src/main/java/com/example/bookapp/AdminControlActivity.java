@@ -2,6 +2,7 @@ package com.example.bookapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class AdminControlActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private ImageButton openDrawer;
     FirebaseAuth firebaseAuth;
     RecyclerView recyclerView;
     BooksAdapter booksAdapter;
@@ -33,6 +35,11 @@ public class AdminControlActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_menu);
         navigationView = findViewById(R.id.navigationView);
         recyclerView = findViewById(R.id.recyclerView);
+        openDrawer = findViewById(R.id.image_btn);
+
+        openDrawer.setOnClickListener(view -> {
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
 
