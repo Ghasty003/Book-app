@@ -115,6 +115,7 @@ public class AddNewBookActivity extends AppCompatActivity {
                }
 
                Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show();
+               showProgress(false);
                authorName.setText("");
                bookName.setText("");
             });
