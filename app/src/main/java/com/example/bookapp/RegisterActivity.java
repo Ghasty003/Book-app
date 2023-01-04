@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -85,8 +86,9 @@ public class RegisterActivity extends AppCompatActivity {
             userProfileChangeRequest = new UserProfileChangeRequest.Builder()
                     .setDisplayName(userName).build();
 
+            DocumentReference documentReference = Utility.getCollectionReferenceForUsers().document();
 
-            firebaseFirestore.collection("bookUsers").document(Objects.requireNonNull(firebaseUser.getUid())).set(users).addOnCompleteListener(userTask -> {
+            documentReference.set(users).addOnCompleteListener(userTask -> {
                 if (!userTask.isSuccessful()) {
                     Toast.makeText(this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     showProgress(false);

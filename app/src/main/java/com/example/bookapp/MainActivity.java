@@ -27,5 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         test.setText(Objects.requireNonNull(user).getDisplayName());
 
+        test.setOnClickListener(view -> FirebaseAuth.getInstance().signOut());
+
     }
 }
