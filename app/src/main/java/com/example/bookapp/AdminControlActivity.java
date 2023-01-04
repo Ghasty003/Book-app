@@ -43,6 +43,10 @@ public class AdminControlActivity extends AppCompatActivity {
                 case R.id.display_users:
                     startActivity(new Intent(this, DisplayUsersActivity.class));
                     break;
+                case R.id.add:
+                    startActivity(new Intent(this, AddNewBookActivity.class));
+                    break;
+
             }
 
             return true;
