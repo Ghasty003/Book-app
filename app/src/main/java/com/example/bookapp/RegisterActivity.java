@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     FirebaseUser firebaseUser;
     UserProfileChangeRequest userProfileChangeRequest;
-    Map<String, Object> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +77,16 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            map.put("Email", emailText);
-            map.put("Password", password);
-            map.put("username", userName);
+            Users users = new Users();
+            users.setEmail(emailText);
+            users.setPassword(password);
+            users.setUsername(userName);
 
             userProfileChangeRequest = new UserProfileChangeRequest.Builder()
                     .setDisplayName(userName).build();
 
 
-            firebaseFirestore.collection("bookUsers").document(Objects.requireNonNull(firebaseUser.getUid())).set(map).addOnCompleteListener(userTask -> {
+            firebaseFirestore.collection("bookUsers").document(Objects.requireNonNull(firebaseUser.getUid())).set(users).addOnCompleteListener(userTask -> {
                 if (!userTask.isSuccessful()) {
                     Toast.makeText(this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     showProgress(false);
