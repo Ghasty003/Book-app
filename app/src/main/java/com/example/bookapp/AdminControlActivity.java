@@ -7,17 +7,23 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class AdminControlActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     FirebaseAuth firebaseAuth;
+    RecyclerView recyclerView;
+    BooksAdapter booksAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +32,11 @@ public class AdminControlActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_menu);
         navigationView = findViewById(R.id.navigationView);
-        TextView textView = findViewById(R.id.test);
-
-        textView.setText(new Users().getUsername());
+        recyclerView = findViewById(R.id.recyclerView);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        displayBooks();
 
         navigationListener();
     }
@@ -53,13 +59,40 @@ public class AdminControlActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.display:
-                    startActivity(new Intent(this, DisplayBooksActivity.class));
+                    startActivity(new Intent(this, AdminControlActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
             }
 
             return true;
         });
+    }
+
+    private void displayBooks() {
+        Query query = Utility.getCollectionReferenceForBooks().orderBy("bookName", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<BookUpload> options = new FirestoreRecyclerOptions.Builder<BookUpload>().setQuery(query, BookUpload.class).build();
+
+        booksAdapter = new BooksAdapter(options, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(booksAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        booksAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        booksAdapter.stopListening();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        booksAdapter.notifyDataSetChanged();
     }
 
 }
