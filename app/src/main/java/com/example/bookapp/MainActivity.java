@@ -12,22 +12,11 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView test;
-
-    FirebaseUser user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        test = findViewById(R.id.test);
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        test.setText(Objects.requireNonNull(user).getDisplayName());
-
-        test.setOnClickListener(view -> FirebaseAuth.getInstance().signOut());
 
     }
 }
