@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/add" android:title="Add Books" android:icon="@drawable/ic_baseline_library_books_24"  />
         <item android:id="@+id/display" android:title="Display Books" android:icon="@drawable/ic_baseline_menu_book_24"  />
+        <item android:id="@+id/add" android:title="Add Books" android:icon="@drawable/ic_baseline_library_books_24"  />
         <item android:id="@+id/update" android:title="Update Books" android:icon="@drawable/ic_baseline_library_books_24"  />
         <item android:id="@+id/delete" android:title="Delete Books" android:icon="@drawable/ic_baseline_delete_24" />
         <item android:id="@+id/display_users" android:title="Display users" android:icon="@drawable/ic_baseline_person_24"  />
