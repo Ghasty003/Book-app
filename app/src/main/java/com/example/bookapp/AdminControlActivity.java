@@ -2,11 +2,14 @@ package com.example.bookapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AdminControlActivity extends AppCompatActivity {
 
@@ -19,6 +22,9 @@ public class AdminControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_control);
 
         navigationView = findViewById(R.id.navigationView);
+        TextView textView = findViewById(R.id.test);
+
+        textView.setText(new Users().getUsername());
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -34,9 +40,13 @@ public class AdminControlActivity extends AppCompatActivity {
                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                     break;
+                case R.id.display_users:
+                    startActivity(new Intent(this, DisplayUsersActivity.class));
+                    break;
             }
 
             return true;
         });
     }
+
 }

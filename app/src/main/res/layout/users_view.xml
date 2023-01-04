@@ -12,17 +12,8 @@
         android:layout_height="wrap_content"
         tools:text="email"
         android:textSize="20sp"
-        android:layout_marginStart="20sp"
-    />
-
-    <TextView
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="password"
-        android:textSize="20sp"
-        android:layout_toEndOf="@id/email"
-        android:layout_marginStart="20sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
     />
 
     <TextView
@@ -31,8 +22,8 @@
         android:layout_height="wrap_content"
         tools:text="username"
         android:textSize="20sp"
-        android:layout_toEndOf="@id/password"
-        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
     />
 
 </RelativeLayout>
