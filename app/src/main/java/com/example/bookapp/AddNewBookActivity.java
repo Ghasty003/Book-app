@@ -7,10 +7,12 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class AddNewBookActivity extends AppCompatActivity {
     private Button addBook;
     private ImageView imageView;
     private TextView chooseImg;
+    private ProgressBar progressBar;
     private final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
 
@@ -41,6 +44,7 @@ public class AddNewBookActivity extends AppCompatActivity {
         imageView = findViewById(R.id.book_img);
         addBook = findViewById(R.id.add_book);
         chooseImg = findViewById(R.id.choose_img);
+        progressBar = findViewById(R.id.progress_bar);
 
         reference = FirebaseStorage.getInstance().getReference("books");
 
@@ -77,6 +81,13 @@ public class AddNewBookActivity extends AppCompatActivity {
         String book_name = bookName.getText().toString();
         String author_name = authorName.getText().toString();
 
+        if (book_name.equals("") || author_name.equals("")) {
+            Toast.makeText(this, "Input fields must be filled", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        showProgress(true);
+
         BookUpload bookUpload = new BookUpload();
 
         StorageReference fileRef = reference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
@@ -99,13 +110,25 @@ public class AddNewBookActivity extends AppCompatActivity {
             documentReference.set(bookUpload).addOnCompleteListener(task1 -> {
                if (!task1.isSuccessful()) {
                    Toast.makeText(this, task1.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                   showProgress(false);
                    return;
                }
 
-                Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show();
+               Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show();
                authorName.setText("");
                bookName.setText("");
             });
         });
+    }
+
+    private void showProgress(boolean show) {
+        if (!show) {
+            addBook.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        addBook.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 }
