@@ -7,5 +7,17 @@
     tools:context=".AdminControlActivity">
 
 
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/drawer_menu"
+        android:background="@drawable/book_shine"
+        android:layout_gravity="start"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        android:fitsSystemWindows="true"
+        app:subheaderColor="@color/white"
+    />
 
 </androidx.drawerlayout.widget.DrawerLayout>
