@@ -69,6 +69,10 @@ public class AdminControlActivity extends AppCompatActivity {
                     startActivity(new Intent(this, AdminControlActivity.class));
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
+                case R.id.delete:
+                    startActivity(new Intent(this, DeleteBookActivity.class));
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
             }
 
             return true;
