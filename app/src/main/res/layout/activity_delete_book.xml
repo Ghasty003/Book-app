@@ -8,12 +8,12 @@
     tools:context=".DeleteBookActivity">
 
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edittext_bg"
         android:layout_marginVertical="30dp"
         android:layout_marginHorizontal="40dp"
-
     />
 
 </RelativeLayout>
