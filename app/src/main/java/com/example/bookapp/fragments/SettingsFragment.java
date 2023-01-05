@@ -66,14 +66,14 @@ public class SettingsFragment extends Fragment {
         updateUsername.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
             intent.putExtra("username", "username");
-            startActivity(intent);
+           getActivity().startActivity(intent);
         });
 
-        updateEmail.setOnClickListener(v -> {
+       /* updateEmail.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
             intent.putExtra("email", "email");
-            startActivity(intent);
-        });
+            getActivity().startActivity(intent);
+        }); */
     }
 
     public void deleteUserAccount() {

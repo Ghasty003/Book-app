@@ -44,20 +44,27 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
 
         String username = getIntent().getStringExtra("username");
         if (username != null || !username.equals("")) {
-            newDetail.setHint("Enter new password");
-            changeRequest.setText("update username");
+            usernameChangeMode = true;
         }
+
+        if (usernameChangeMode) {
+            if (username != null || !username.equals("")) {
+                newDetail.setHint("Enter new password");
+                changeRequest.setText("update username");
+
+                changeRequest.setOnClickListener(view -> {
+                    if (username != null || username.equals("")) {
+                        changeUserName();
+                    }
+                });
+            }
+        }
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         backBtn.setOnClickListener(view -> finish());
-
-        changeRequest.setOnClickListener(view -> {
-            if (username != null || username.equals("")) {
-                changeUserName();
-            }
-        });
     }
 
     private void changeUserName() {
