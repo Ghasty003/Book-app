@@ -52,6 +52,11 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
 
         String newUserName = newDetail.getText().toString();
 
+        if (newUserName.equals("")) {
+            Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
                 .setDisplayName(newUserName)
                 .build();
