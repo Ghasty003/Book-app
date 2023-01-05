@@ -15,10 +15,12 @@ import android.widget.TextView;
 import com.example.bookapp.LoginActivity;
 import com.example.bookapp.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsFragment extends Fragment {
 
-    private TextView logout;
+    private TextView logout, username;
+    FirebaseUser user;
 
 
     public SettingsFragment() {
@@ -30,8 +32,12 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         logout = view.findViewById(R.id.logout);
+        username = view.findViewById(R.id.user_name);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
 
+        username.setText("Welcome back, " + user.getDisplayName());
 
         logout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
