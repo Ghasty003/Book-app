@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Change username"
             android:textSize="20sp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="15dp"
             android:textColor="@color/black"
              android:drawableLeft="@drawable/ic_baseline_person_24"
              android:drawablePadding="10dp"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Change email"
             android:textSize="20sp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="15dp"
             android:textColor="@color/black"
              android:drawableLeft="@drawable/ic_baseline_email_24"
              android:drawablePadding="10dp"
@@ -55,10 +55,23 @@
             android:layout_height="wrap_content"
             android:text="Change password"
             android:textSize="20sp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="15dp"
             android:textColor="@color/black"
              android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
              android:drawablePadding="10dp"
+            />
+
+        <TextView
+            android:id="@+id/delete_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete account"
+            android:textSize="20sp"
+            android:layout_marginVertical="15dp"
+            android:textColor="#DF0C0C"
+             android:drawableLeft="@drawable/ic_baseline_delete_24"
+             android:drawablePadding="10dp"
+            android:drawableTint="#DF0C0C"
             />
 
         <TextView
@@ -67,7 +80,7 @@
             android:layout_height="wrap_content"
             android:text="Logout"
             android:textSize="20sp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="15dp"
             android:textColor="@color/black"
             android:drawableLeft="@drawable/ic_baseline_login_24"
             android:drawablePadding="10dp"
