@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.bookapp.LoginActivity;
 import com.example.bookapp.R;
+import com.example.bookapp.UserDetailsChangeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,9 +29,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class SettingsFragment extends Fragment {
 
-    private TextView logout, username, deleteAccount;
+    private TextView logout, username, deleteAccount, updateUsername;
     FirebaseUser user;
     FirebaseFirestore firebaseFirestore;
+
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -43,6 +45,7 @@ public class SettingsFragment extends Fragment {
         logout = view.findViewById(R.id.logout);
         username = view.findViewById(R.id.user_name);
         deleteAccount = view.findViewById(R.id.delete_account);
+        updateUsername = view.findViewById(R.id.update_username);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -57,6 +60,12 @@ public class SettingsFragment extends Fragment {
 
         deleteAccount.setOnClickListener(v -> {
            deleteUserAccount();
+        });
+
+        updateUsername.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
+            intent.putExtra("password", "password");
+            startActivity(intent);
         });
     }
 
