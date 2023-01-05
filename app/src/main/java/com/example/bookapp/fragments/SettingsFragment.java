@@ -64,7 +64,7 @@ public class SettingsFragment extends Fragment {
 
         updateUsername.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
-            intent.putExtra("password", "password");
+            intent.putExtra("username", "username");
             startActivity(intent);
         });
     }
