@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,17 @@ import com.example.bookapp.LoginActivity;
 import com.example.bookapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class SettingsFragment extends Fragment {
 
     private TextView logout, username, deleteAccount;
     FirebaseUser user;
-
+    FirebaseFirestore firebaseFirestore;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -39,7 +45,7 @@ public class SettingsFragment extends Fragment {
         deleteAccount = view.findViewById(R.id.delete_account);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         username.setText("Welcome back, " + user.getDisplayName());
 
@@ -68,9 +74,34 @@ public class SettingsFragment extends Fragment {
                     return;
                 }
 
-                Toast.makeText(getContext(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                getActivity().finish();
+                firebaseFirestore.collection("bookUsers").whereEqualTo("email", user.getEmail()).get().addOnCompleteListener(task1 -> {
+                    if (!task1.isSuccessful()) {
+                        Toast.makeText(getContext(), task1.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        dialogInterface.dismiss();
+                        return;
+                    }
+
+                    QuerySnapshot querySnapshot = task1.getResult();
+
+                    for (DocumentSnapshot q : querySnapshot) {
+                        if (q.exists()) {
+                            q.getReference().delete().addOnCompleteListener(innerTask -> {
+                                if (!innerTask.isSuccessful()) {
+                                    Toast.makeText(getContext(), innerTask.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                    dialogInterface.dismiss();
+                                    return;
+                                }
+
+                                Toast.makeText(getContext(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getContext(), LoginActivity.class));
+                                getActivity().finish();
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "No such user.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             });
         }));
 
