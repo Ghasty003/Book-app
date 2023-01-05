@@ -1,5 +1,7 @@
 package com.example.bookapp.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bookapp.LoginActivity;
 import com.example.bookapp.R;
@@ -19,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SettingsFragment extends Fragment {
 
-    private TextView logout, username;
+    private TextView logout, username, deleteAccount;
     FirebaseUser user;
 
 
@@ -33,6 +36,7 @@ public class SettingsFragment extends Fragment {
 
         logout = view.findViewById(R.id.logout);
         username = view.findViewById(R.id.user_name);
+        deleteAccount = view.findViewById(R.id.delete_account);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -44,6 +48,37 @@ public class SettingsFragment extends Fragment {
             startActivity(new Intent(getContext(), LoginActivity.class));
             getActivity().finish();
         });
+
+        deleteAccount.setOnClickListener(v -> {
+           deleteUserAccount();
+        });
+    }
+
+    public void deleteUserAccount() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle("Delete account");
+        alertDialog.setMessage("This action is irreversible");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", ((dialogInterface, i) -> {
+            user.delete().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(getContext(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    dialogInterface.dismiss();
+                    return;
+                }
+
+                Toast.makeText(getContext(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
+            });
+        }));
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", ((dialogInterface, i) -> {
+            dialogInterface.dismiss();
+        }));
+
+        alertDialog.show();
     }
 
     @Override
