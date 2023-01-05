@@ -29,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class SettingsFragment extends Fragment {
 
-    private TextView logout, username, deleteAccount, updateUsername;
+    private TextView logout, username, deleteAccount, updateUsername, updateEmail;
     FirebaseUser user;
     FirebaseFirestore firebaseFirestore;
 
@@ -46,6 +46,7 @@ public class SettingsFragment extends Fragment {
         username = view.findViewById(R.id.user_name);
         deleteAccount = view.findViewById(R.id.delete_account);
         updateUsername = view.findViewById(R.id.update_username);
+        updateEmail = view.findViewById(R.id.update_email);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -65,6 +66,12 @@ public class SettingsFragment extends Fragment {
         updateUsername.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
             intent.putExtra("username", "username");
+            startActivity(intent);
+        });
+
+        updateEmail.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
+            intent.putExtra("email", "email");
             startActivity(intent);
         });
     }
