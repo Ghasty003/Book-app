@@ -11,26 +11,13 @@
         android:id="@+id/header"
         />
 
-    <EditText
-        android:id="@+id/old_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:background="@drawable/edittext_bg"
-        android:padding="10dp"
-        android:layout_marginTop="30dp"
-        android:hint="Author name"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_below="@id/header"
-        />
 
     <EditText
         android:id="@+id/new_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:layout_below="@id/old_detail"
+        android:layout_below="@id/header"
         android:background="@drawable/edittext_bg"
         android:hint="Book name"
         android:textColor="@color/white"
