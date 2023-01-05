@@ -34,6 +34,7 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         if (username != null || !username.equals("")) {
             newDetail.setHint("Enter new password");
+            changeRequest.setText("update username");
         }
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
