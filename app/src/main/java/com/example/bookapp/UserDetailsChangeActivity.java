@@ -2,7 +2,9 @@ package com.example.bookapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,13 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserDetailsChangeActivity extends AppCompatActivity {
     private View header;
@@ -19,7 +28,9 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
     private EditText newDetail;
     private Button changeRequest;
     private boolean usernameChangeMode = false;
+
     FirebaseUser firebaseUser;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +49,7 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
         }
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         backBtn.setOnClickListener(view -> finish());
 
@@ -67,8 +79,26 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
                 return;
             }
 
-            Toast.makeText(this, "Username update successful.", Toast.LENGTH_SHORT).show();
-            finish();
+            firebaseFirestore.collection("bookUsers").whereEqualTo("email", firebaseUser.getEmail()).get().addOnCompleteListener(task1 -> {
+
+                if (!task1.isSuccessful()) {
+                    Toast.makeText(this, task1.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                for (QueryDocumentSnapshot q : task1.getResult()) {
+                    if (q.exists()) {
+                        DocumentReference documentReference = q.getReference();
+                        documentReference.update("username", newUserName).addOnCompleteListener(innerTask -> {
+                            Toast.makeText(this, "Username update successful.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), SplashScreenActivity.class));
+                            finish();
+                        });
+                    } else {
+                        Toast.makeText(this, "No such user", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         });
     }
 }
