@@ -20,20 +20,25 @@ import com.squareup.picasso.Picasso;
 
 public class DeleteBooksAdapter extends FirestoreRecyclerAdapter<DeleteItems, DeleteBooksAdapter.DeleteBookViewHolder> {
 
+    Context context;
 
-    public DeleteBooksAdapter(@NonNull FirestoreRecyclerOptions<DeleteItems> options) {
+    public DeleteBooksAdapter(@NonNull FirestoreRecyclerOptions<DeleteItems> options, Context context) {
         super(options);
+        this.context = context;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull DeleteBookViewHolder holder, int position, @NonNull DeleteItems model) {
-
+    protected void onBindViewHolder(@NonNull DeleteBookViewHolder holder, int position, @NonNull DeleteItems deleteItems) {
+        holder.authorName.setText(deleteItems.getAuthorName());
+        holder.bookName.setText(deleteItems.getBookName());
+        Picasso.with(context).load(deleteItems.getBookImage()).into(holder.imageView);
     }
 
     @NonNull
     @Override
     public DeleteBookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delete_books_view, parent, false);
+        return new DeleteBookViewHolder(view);
     }
 
     class DeleteBookViewHolder extends RecyclerView.ViewHolder {
