@@ -32,6 +32,19 @@ public class DeleteBooksAdapter extends FirestoreRecyclerAdapter<DeleteItems, De
         holder.authorName.setText(deleteItems.getAuthorName());
         holder.bookName.setText(deleteItems.getBookName());
         Picasso.with(context).load(deleteItems.getBookImage()).into(holder.imageView);
+
+        String docId = this.getSnapshots().getSnapshot(position).getId();
+
+        holder.imageButton.setOnClickListener(view -> {
+            FirebaseFirestore.getInstance().collection("books").document(docId).delete().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(context, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(context, "deleted successfully", Toast.LENGTH_SHORT).show();
+            });
+        });
     }
 
     @NonNull
