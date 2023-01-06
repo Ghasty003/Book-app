@@ -2,6 +2,7 @@ package com.example.bookapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 public class DeleteBookActivity extends AppCompatActivity {
 
     private SearchView searchView;
+    RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
 
     @Override
