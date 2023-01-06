@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -48,8 +50,10 @@ public class DeleteBookActivity extends AppCompatActivity {
             for (QueryDocumentSnapshot q : task.getResult()) {
                 if (q.exists()) {
                     Log.d("MY_APP", "doc exists");
+                    Log.d("MY_APP", q.getString("authorName"));
+                    Log.d("MY_APP", q.getString("imageUri"));
                 } else {
-                    Log.d("MY_APP", "no such doc");
+                    Log.d("MY_APP", "doc exists");
                 }
             }
         });
