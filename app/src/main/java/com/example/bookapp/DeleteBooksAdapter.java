@@ -32,7 +32,8 @@ public class DeleteBooksAdapter extends FirestoreRecyclerAdapter<DeleteItems, De
     protected void onBindViewHolder(@NonNull DeleteBookViewHolder holder, int position, @NonNull DeleteItems deleteItems) {
         holder.authorName.setText(deleteItems.getAuthorName());
         holder.bookName.setText(deleteItems.getBookName());
-        Picasso.with(context).load(deleteItems.bookImage).into(holder.imageView);
+        String imageUri = this.getSnapshots().getSnapshot(position).getString("imageUri");
+        Picasso.with(context).load(imageUri).into(holder.imageView);
 
         String docId = this.getSnapshots().getSnapshot(position).getId();
 
