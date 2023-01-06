@@ -1,6 +1,7 @@
 package com.example.bookapp;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -27,7 +28,8 @@ public class DeleteBooksAdapter extends RecyclerView.Adapter<DeleteBooksAdapter.
     @NonNull
     @Override
     public DeleteBookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(context).inflate(R.layout.delete_books_view, parent, false);
+        return new DeleteBookViewHolder(view);
     }
 
     @Override
