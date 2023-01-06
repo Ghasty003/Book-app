@@ -13,38 +13,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+public class DeleteBooksAdapter extends FirestoreRecyclerAdapter<DeleteItems, DeleteBooksAdapter.DeleteBookViewHolder> {
 
-public class DeleteBooksAdapter extends RecyclerView.Adapter<DeleteBooksAdapter.DeleteBookViewHolder> {
 
-    Context context;
-    List<DeleteItems> deleteItems;
+    public DeleteBooksAdapter(@NonNull FirestoreRecyclerOptions<DeleteItems> options) {
+        super(options);
+    }
 
-    public DeleteBooksAdapter(Context context, List<DeleteItems> deleteItems) {
-        this.context = context;
-        this.deleteItems = deleteItems;
+    @Override
+    protected void onBindViewHolder(@NonNull DeleteBookViewHolder holder, int position, @NonNull DeleteItems model) {
+
     }
 
     @NonNull
     @Override
     public DeleteBookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.delete_books_view, parent, false);
-        return new DeleteBookViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull DeleteBookViewHolder holder, int position) {
-        holder.authorName.setText(deleteItems.get(position).getAuthorName());
-        holder.bookName.setText(deleteItems.get(position).getBookName());
-        Picasso.with(context).load(deleteItems.get(position).getBookImage()).into(holder.imageView);
-    }
-
-    @Override
-    public int getItemCount() {
-        return deleteItems.size();
+        return null;
     }
 
     class DeleteBookViewHolder extends RecyclerView.ViewHolder {
