@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class DeleteBookActivity extends AppCompatActivity {
 
     private SearchView searchView;
     RecyclerView recyclerView;
+    DeleteBooksAdapter deleteBooksAdapter;
     FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -33,10 +37,11 @@ public class DeleteBookActivity extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        getBooksFromDB();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                getBooksFromDB(query);
                 return true;
             }
 
@@ -47,22 +52,35 @@ public class DeleteBookActivity extends AppCompatActivity {
         });
     }
 
-    private void getBooksFromDB(String bookName) {
-        firebaseFirestore.collection("books").whereEqualTo("bookName", bookName).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Toast.makeText(this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                return;
-            }
+    private void getBooksFromDB() {
+        try {
+            Query query = FirebaseFirestore.getInstance().collection("books").orderBy("bookName", Query.Direction.ASCENDING);
+            FirestoreRecyclerOptions<DeleteItems> options = new FirestoreRecyclerOptions.Builder<DeleteItems>().setQuery(query, DeleteItems.class).build();
 
-            for (QueryDocumentSnapshot q : task.getResult()) {
-                if (q.exists()) {
-                    Log.d("MY_APP", "doc exists");
-                    Log.d("MY_APP", q.getString("authorName"));
-                    Log.d("MY_APP", q.getString("imageUri"));
-                } else {
-                    Log.d("MY_APP", "no such doc exists");
-                }
-            }
-        });
+            deleteBooksAdapter = new DeleteBooksAdapter(options, this);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(deleteBooksAdapter);
+        } catch (Exception e) {
+            Log.d("MY_APP", e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        deleteBooksAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        deleteBooksAdapter.stopListening();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        deleteBooksAdapter.notifyDataSetChanged();
     }
 }
