@@ -2,6 +2,7 @@ package com.example.bookapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeleteBookActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class DeleteBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_delete_book);
 
         searchView = findViewById(R.id.search_view);
+        recyclerView = findViewById(R.id.delete_book_recyclerView);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -40,6 +45,13 @@ public class DeleteBookActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        List<DeleteItems> deleteItems = new ArrayList<>();
+
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new DeleteBooksAdapter(this, deleteItems ));
     }
 
     private void getBooksFromDB(String bookName) {
