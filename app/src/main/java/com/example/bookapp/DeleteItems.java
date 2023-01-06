@@ -1,12 +1,10 @@
 package com.example.bookapp;
 
-import android.widget.ImageView;
 
 public class DeleteItems {
-    String authorName, bookName;
-    ImageView bookImage;
+    String authorName, bookName, bookImage;
 
-    public DeleteItems(String authorName, String bookName, ImageView bookImage) {
+    public DeleteItems(String authorName, String bookName, String bookImage) {
         this.authorName = authorName;
         this.bookName = bookName;
         this.bookImage = bookImage;
@@ -20,7 +18,7 @@ public class DeleteItems {
         return bookName;
     }
 
-    public ImageView getBookImage() {
+    public String getBookImage() {
         return bookImage;
     }
 }
