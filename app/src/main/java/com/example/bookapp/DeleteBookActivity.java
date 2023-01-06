@@ -59,10 +59,6 @@ public class DeleteBookActivity extends AppCompatActivity {
                     Log.d("MY_APP", "doc exists");
                     Log.d("MY_APP", q.getString("authorName"));
                     Log.d("MY_APP", q.getString("imageUri"));
-                    List<DeleteItems> list = new ArrayList<>();
-                    list.add(new DeleteItems(q.getString("authorName"), q.getString("bookName"), q.getString("imageUri")));
-                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                    recyclerView.setAdapter(new DeleteBooksAdapter(this, list));
                 } else {
                     Log.d("MY_APP", "no such doc exists");
                 }
