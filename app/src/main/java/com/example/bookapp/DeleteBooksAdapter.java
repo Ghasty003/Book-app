@@ -1,5 +1,6 @@
 package com.example.bookapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,19 +32,30 @@ public class DeleteBooksAdapter extends FirestoreRecyclerAdapter<DeleteItems, De
     protected void onBindViewHolder(@NonNull DeleteBookViewHolder holder, int position, @NonNull DeleteItems deleteItems) {
         holder.authorName.setText(deleteItems.getAuthorName());
         holder.bookName.setText(deleteItems.getBookName());
-        Picasso.with(context).load(deleteItems.getBookImage()).into(holder.imageView);
+        Picasso.with(context).load(deleteItems.bookImage).into(holder.imageView);
 
         String docId = this.getSnapshots().getSnapshot(position).getId();
 
         holder.imageButton.setOnClickListener(view -> {
-            FirebaseFirestore.getInstance().collection("books").document(docId).delete().addOnCompleteListener(task -> {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(context, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle("Delete book");
+            alertDialog.setMessage("Do you want to delete item?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", ((dialogInterface, i) -> {
+                FirebaseFirestore.getInstance().collection("books").document(docId).delete().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(context, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                Toast.makeText(context, "deleted successfully", Toast.LENGTH_SHORT).show();
-            });
+                    Toast.makeText(context, "deleted successfully", Toast.LENGTH_SHORT).show();
+                });
+            }));
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", ((dialogInterface, i) -> {
+                alertDialog.dismiss();
+            }));
+
+            alertDialog.show();
         });
     }
 
