@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/drawable/done_bg.xml" value="0.1" />
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/drawable/edittext_bg.xml" value="0.1115" />
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/drawable/view_bg.xml" value="0.112" />
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/layout/activity_add_new_book.xml" value="0.20416666666666666" />
@@ -25,6 +26,7 @@
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/layout/fragment_user2.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/layout/header.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/layout/users_view.xml" value="0.203125" />
+        <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/layout/usersbook_view.xml" value="0.203125" />
         <entry key="..\:/Users/USER PC/AndroidStudioProjects/Bookapp/app/src/main/res/menu/drawer_menu.xml" value="0.203125" />
       </map>
     </option>
