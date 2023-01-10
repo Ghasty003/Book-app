@@ -2,6 +2,7 @@ package com.example.bookapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.bookapp.fragments.SettingsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -98,7 +100,7 @@ public class UserDetailsChangeActivity extends AppCompatActivity {
                         DocumentReference documentReference = q.getReference();
                         documentReference.update("username", newUserName).addOnCompleteListener(innerTask -> {
                             Toast.makeText(this, "Username update successful.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), SplashScreenActivity.class));
+                            Toast.makeText(this, "Refresh to see changes", Toast.LENGTH_SHORT).show();
                             finish();
                         });
                     } else {
