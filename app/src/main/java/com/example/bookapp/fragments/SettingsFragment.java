@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class SettingsFragment extends Fragment {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private TextView logout, username, deleteAccount, updateUsername, updateEmail;
     FirebaseUser user;
     FirebaseFirestore firebaseFirestore;
@@ -42,6 +45,7 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         logout = view.findViewById(R.id.logout);
         username = view.findViewById(R.id.user_name);
         deleteAccount = view.findViewById(R.id.delete_account);
@@ -69,11 +73,31 @@ public class SettingsFragment extends Fragment {
            getActivity().startActivity(intent);
         });
 
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            updateUserName();
+            swipeRefreshLayout.setRefreshing(false);
+        });
+
        /* updateEmail.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), UserDetailsChangeActivity.class);
             intent.putExtra("email", "email");
             getActivity().startActivity(intent);
         }); */
+    }
+
+    private void updateUserName() {
+        firebaseFirestore.collection("bookUsers").whereEqualTo("email", user.getEmail()).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                if (documentSnapshot.exists()) {
+                    username.setText("Welcome back " + documentSnapshot.getString("username"));
+                }
+            }
+        });
     }
 
     public void deleteUserAccount() {
