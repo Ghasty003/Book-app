@@ -16,6 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -36,22 +37,35 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
         Picasso.with(context).load(book.getImageUri()).into(holder.imageView);
 
         holder.imageButton.setOnClickListener(view -> {
-            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
             UserCollection collection = new UserCollection();
             collection.setAuthorName(book.authorName);
             collection.setBookName(book.bookName);
             collection.setImageUri(book.getImageUri());
 
-            Utility.getCollectionReferenceForUsersBook().document().set(collection).addOnCompleteListener(task -> {
+            Utility.getCollectionReferenceForUsersBook().whereEqualTo("bookName", book.getBookName()).whereEqualTo("authorName", book.getAuthorName()).get().addOnCompleteListener(task -> {
                 if (!task.isSuccessful()) {
                     Toast.makeText(context, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(context, "Book added to your collection successfully", Toast.LENGTH_SHORT).show();
+                for (DocumentSnapshot document : task.getResult()) {
+                    if (document.exists()) {
+                        Toast.makeText(context, "Book already exits in your collection", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                Utility.getCollectionReferenceForUsersBook().document().set(collection).addOnCompleteListener(task1 -> {
+                    if (!task1.isSuccessful()) {
+                        Toast.makeText(context, task1.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Toast.makeText(context, "Book added to your collection successfully", Toast.LENGTH_SHORT).show();
+                });
             });
+
         });
     }
 
