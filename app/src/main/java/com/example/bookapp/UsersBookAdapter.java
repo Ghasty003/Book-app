@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, UsersBookAdapter.UsersBookViewHolder> {
@@ -30,6 +34,25 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
         holder.authorName.setText(book.getAuthorName());
         holder.bookName.setText(book.getBookName());
         Picasso.with(context).load(book.getImageUri()).into(holder.imageView);
+
+        holder.imageButton.setOnClickListener(view -> {
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            UserCollection collection = new UserCollection();
+            collection.setAuthorName(book.authorName);
+            collection.setBookName(book.bookName);
+            collection.setImageUri(book.getImageUri());
+
+            firebaseFirestore.collection("usersCollection").document(user.getUid()).set(collection).addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(context, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(context, "Book added to your collection successfully", Toast.LENGTH_SHORT).show();
+            });
+        });
     }
 
     @NonNull
