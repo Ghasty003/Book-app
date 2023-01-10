@@ -1,5 +1,7 @@
 package com.example.bookapp;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -14,6 +16,7 @@ public class Utility {
     }
 
     static CollectionReference getCollectionReferenceForUsersBook() {
-        return FirebaseFirestore.getInstance().collection("usersCollection");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return FirebaseFirestore.getInstance().collection("usersCollection").document(user.getUid()).collection("books");
     }
 }
