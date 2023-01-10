@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bookapp.BookUpload;
 import com.example.bookapp.BooksAdapter;
 import com.example.bookapp.R;
+import com.example.bookapp.UsersBookAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -22,7 +23,7 @@ import com.google.firebase.firestore.Query;
 public class LibraryFragment extends Fragment {
 
     RecyclerView recyclerView;
-    BooksAdapter booksAdapter;
+    UsersBookAdapter usersBookAdapter;
 
     public LibraryFragment() {
         // Required empty public constructor
@@ -36,9 +37,9 @@ public class LibraryFragment extends Fragment {
 
         Query query = FirebaseFirestore.getInstance().collection("books").orderBy("bookName", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<BookUpload> options = new FirestoreRecyclerOptions.Builder<BookUpload>().setQuery(query, BookUpload.class).build();
-        booksAdapter = new BooksAdapter(options, getActivity());
+        usersBookAdapter = new UsersBookAdapter(options, getActivity());
 
-        recyclerView.setAdapter(booksAdapter);
+        recyclerView.setAdapter(usersBookAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -50,19 +51,19 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        booksAdapter.startListening();
+        usersBookAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        booksAdapter.stopListening();
+        usersBookAdapter.stopListening();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        booksAdapter.notifyDataSetChanged();
+        usersBookAdapter.notifyDataSetChanged();
     }
 
     @Override
