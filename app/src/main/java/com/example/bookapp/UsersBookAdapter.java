@@ -43,7 +43,7 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
             collection.setBookName(book.bookName);
             collection.setImageUri(book.getImageUri());
 
-            Utility.getCollectionReferenceForUsersBook().whereEqualTo("bookName", book.getBookName()).whereEqualTo("authorName", book.getAuthorName()).get().addOnCompleteListener(task -> {
+            Utility.getCollectionReferenceForUsersBook().whereEqualTo("bookName", collection.getBookName()).whereEqualTo("authorName", collection.getAuthorName()).get().addOnCompleteListener(task -> {
                 if (!task.isSuccessful()) {
                     Toast.makeText(context, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     return;
