@@ -49,8 +49,8 @@
 
     <ImageButton
         android:id="@+id/addToCollection"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/ic_baseline_add_24"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
