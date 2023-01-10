@@ -94,7 +94,7 @@ public class SettingsFragment extends Fragment {
 
             for (DocumentSnapshot documentSnapshot : task.getResult()) {
                 if (documentSnapshot.exists()) {
-                    username.setText("Welcome back " + documentSnapshot.getString("username"));
+                    username.setText("Welcome back, " + documentSnapshot.getString("username"));
                 }
             }
         });
