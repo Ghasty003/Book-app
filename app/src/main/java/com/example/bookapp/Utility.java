@@ -12,4 +12,8 @@ public class Utility {
     static CollectionReference getCollectionReferenceForBooks() {
         return FirebaseFirestore.getInstance().collection("books");
     }
+
+    static CollectionReference getCollectionReferenceForUsersBook() {
+        return FirebaseFirestore.getInstance().collection("usersCollection");
+    }
 }
