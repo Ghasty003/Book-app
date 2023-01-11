@@ -22,7 +22,6 @@ import java.util.List;
 
 public class DeleteBookActivity extends AppCompatActivity {
 
-    private SearchView searchView;
     RecyclerView recyclerView;
     DeleteBooksAdapter deleteBooksAdapter;
     FirebaseFirestore firebaseFirestore;
@@ -32,24 +31,11 @@ public class DeleteBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_book);
 
-        searchView = findViewById(R.id.search_view);
         recyclerView = findViewById(R.id.delete_book_recyclerView);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         getBooksFromDB();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
     }
 
     private void getBooksFromDB() {
