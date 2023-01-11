@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
         Picasso.with(context).load(book.getImageUri()).into(holder.imageView);
 
         holder.imageButton.setOnClickListener(view -> {
+            holder.progressBar.setVisibility(View.VISIBLE);
+            holder.imageButton.setVisibility(View.GONE);
 
             UserCollection collection = new UserCollection();
             collection.setAuthorName(book.authorName);
@@ -52,6 +55,8 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
                 for (DocumentSnapshot document : task.getResult()) {
                     if (document.exists()) {
                         Toast.makeText(context, "Book already exits in your collection", Toast.LENGTH_SHORT).show();
+                        holder.progressBar.setVisibility(View.GONE);
+                        holder.imageButton.setVisibility(View.VISIBLE);
                         return;
                     }
                 }
@@ -63,6 +68,8 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
                     }
 
                     Toast.makeText(context, "Book added to your collection successfully", Toast.LENGTH_SHORT).show();
+                    holder.progressBar.setVisibility(View.GONE);
+                    holder.imageButton.setVisibility(View.VISIBLE);
                 });
             });
 
@@ -81,6 +88,7 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
         ImageView imageView;
         TextView authorName, bookName;
         ImageButton imageButton;
+        ProgressBar progressBar;
 
         public UsersBookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +97,7 @@ public class UsersBookAdapter extends FirestoreRecyclerAdapter<BookUpload, Users
             imageView = itemView.findViewById(R.id.userBook_image_view);
             authorName = itemView.findViewById(R.id.userAuthor_text_view);
             bookName = itemView.findViewById(R.id.userBook_text_view);
+            progressBar = itemView.findViewById(R.id.progress_Bar);
         }
     }
 }
