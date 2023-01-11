@@ -52,6 +52,24 @@ public class BooksFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        userCollectionAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        userCollectionAdapter.stopListening();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        userCollectionAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
