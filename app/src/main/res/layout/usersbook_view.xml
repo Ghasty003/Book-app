@@ -59,4 +59,15 @@
         app:tint="@color/white"
     />
 
+    <ProgressBar
+        android:id="@+id/progress_Bar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:indeterminateTint="#E91E63"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:visibility="gone"
+    />
+
 </RelativeLayout>
