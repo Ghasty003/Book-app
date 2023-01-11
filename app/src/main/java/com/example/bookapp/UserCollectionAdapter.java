@@ -15,8 +15,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 public class UserCollectionAdapter extends FirestoreRecyclerAdapter<UserCollection, UserCollectionAdapter.UserCollectionViewHolder> {
 
     Context context;
