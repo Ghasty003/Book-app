@@ -49,8 +49,8 @@
 
     <ImageButton
         android:id="@+id/removeFromCollection"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@drawable/ic_baseline_delete_24"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
